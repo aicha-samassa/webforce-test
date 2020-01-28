@@ -20,6 +20,7 @@ class FriendsController extends AbstractController
      */
     public function index(FriendsRepository $friendsRepository): Response
     {
+
         return $this->render('friends/index.html.twig', [
             'friends' => $friendsRepository->findAll(),
         ]);

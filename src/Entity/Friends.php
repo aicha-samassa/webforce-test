@@ -36,10 +36,6 @@ class Friends
      */
     private $tel;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $username;
 
     public function getId(): ?int
     {
@@ -90,18 +86,6 @@ class Friends
     public function setTel(string $tel): self
     {
         $this->tel = $tel;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
 
         return $this;
     }
