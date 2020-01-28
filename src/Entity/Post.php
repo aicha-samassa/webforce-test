@@ -22,24 +22,21 @@ class Post
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $summary;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $content;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime") 
      */
     private $created_at;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $author;
+    
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -51,6 +48,9 @@ class Post
      */
     private $user;
     
+    public function __construct(){
+        $this->created_at = new \DateTime;
+    }
 
     public function getId(): ?int
     {
@@ -101,18 +101,6 @@ class Post
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
 
         return $this;
     }
