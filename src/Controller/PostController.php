@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Entity\Comment;
+use App\Form\CommentType;
 /**
  * @Route("/post")
  */
@@ -61,12 +63,35 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="post_show", methods={"GET"})
+     * @Route("/{id}", name="post_show")
      */
-    public function show(Post $post): Response
+    public function show(Post $post, Request $request): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment->setUser($this->getUser());
+
+            $comment->setPost($post);
+            
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash('succes', 'Merci ');
+            return $this->redirectToRoute('comment_index');
+        }
+
+        $comments = $entityManager->getRepository('App:Comment')->findByPost($post);
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
+            'form' => $form->createView(),
+            'comments' =>$comments,
         ]);
     }
 

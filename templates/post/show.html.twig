@@ -38,10 +38,37 @@
             </tr>
         </tbody>
     </table>
+    <h1>Commentaires</h1>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+        {% else %}
+            Connectez vous pour faire des Commentaires <a href="{{ path('fos_user_security_login')}}">Login</a>
+{% endif %}
+
+<br>
+
+
+
+
+
+{% for message in comments %}
+    <em>Posté par <b>{{ message.user }}</b>
+    le {{ message.createdAt|date('d/m/y h:i') }}
+    </em>
+    <br>
+    {{ message.comment }}<br>
+{% endfor %}
+
+
 
     <a href="{{ path('post_index') }}">back to list</a>
 
     <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
 
     {{ include('post/_delete_form.html.twig') }}
+
+    
 {% endblock %}
