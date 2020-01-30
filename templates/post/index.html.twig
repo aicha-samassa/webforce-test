@@ -27,7 +27,8 @@
                 <td>{{ post.content }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
                 <td>{{ post.user }}</td>
-                <td>{{ post.image }}</td>
+                <td>
+                <img class="monImage" src="{{ asset('uploads/images/posts/')}}{{ post.image }}"></td>
                 <td>
                     <a href="{{ path('post_show', {'id': post.id}) }}">show</a>
                     <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>

@@ -29,11 +29,12 @@
             </tr>
             <tr>
                 <th>Author</th>
-                <td>{{ post.author }}</td>
+                <td>{{ post.user }}</td>
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ post.image }}</td>
+                <td>
+                <img class="monImage" src="{{ asset('uploads/images/posts/')}}{{ post.image }}"></td>
             </tr>
         </tbody>
     </table>
